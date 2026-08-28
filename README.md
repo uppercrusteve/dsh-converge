@@ -17,8 +17,10 @@ conv_attach_evidence ×N → conv_score 0.62 …缺口点名 + 最短补法… �
 ## 安装
 
 ```bash
-# GitHub 仓库（推荐 developer preview 形态，git 安装经 prepare 由 pnpm 放行，见 P3b 契约）
+# GitHub 仓库（推荐 developer preview 形态；本包无构建脚本，pnpm 不需要 allowBuilds 放行，已实测）
 dsh plugin --profile web add github:uppercrusteve/dsh-converge
+# 锁 tag（发布推荐写法，可复现；pnpm 会把 #v0.1.0 归一成 commit 写进 lockfile）
+dsh plugin --profile web add github:uppercrusteve/dsh-converge#v0.1.0
 # npm（当前只发 preview tag，必须显式带 tag；不带 tag 会解析不到）
 dsh plugin --profile web add @uppercrusteve/dsh-converge@preview
 # 本地调试（不安装，直接 patch 挂载；name 必须 file:/// URL，裸 D:\ 会被当协议炸掉整棵插件树）
@@ -30,7 +32,17 @@ node "<dsh bin>" --profile web --patch "examples/converge.dev-fileurl.patch.yml"
 > 返回 200 且与磁盘逐字节一致（sha256 `0A96…166EEE`），BOOT 四事件 outcome=ok（typesTotal=9）；
 > `remove` 后 dep/bundles 行/node_modules 三清除，cleanboot bundle 404、index 200、无树错误
 > （证据 `tests/runs/RELEASE.audit.log`，REL.add/REL.gate/REL.rm/REL.cb，13 路径零污染）。
-> `github:` 与 npm `@preview` 两条为发布后形态，待建仓/发包后回测。
+> `github:` 已实测（`github:owner/repo` 与 `#v0.1.0` 两形态，含 BOOT 四件套与 bundle 字节一致，
+> 逐条判定见发布工作区 `notes/RELEASE.md` 的 G0–G2——工作区级文件，不在包内；包内 `notes/` 只有
+> `CORE-ISSUE.md` 与 `pack-dryrun-scoped.txt`）：deps/bundles/node_modules 三处出现 scoped 名，
+> `remove` 后三清除、cleanboot bundle 404 / index 200 / 无树错误
+> （`REL.gh` / `REL.ghtag` / `REL.cb-gh`，13 路径零污染）。
+> 一处 Windows 陷阱须知：git 安装走 `git clone` 检出，若客户端 `core.autocrlf=true`，仓库内 LF 的
+> `lib/client.js` 会以 CRLF 落进 node_modules（20501→20847 B）；宿主 serve 出的字节与包内文件仍逐字节
+> 一致（sha256 `1908…22F6`），且与 `file:`/npm 形态同一内容——CRLF→LF 归一化后 sha256 仍为 `0A96…166EEE`，
+> 只是行尾差异，不影响语法与运行。要拿到与仓库 blob 逐字节一致的检出，本机设
+> `git config --global core.autocrlf false`（或input），或在本包加 `.gitattributes` 后由发布者定稿。
+> npm `@preview` 形态仍待发包后回测。
 
 `add` 后 profile 的 `dsh.profile.bundles` 出现 `@uppercrusteve/dsh-converge`，宿主按
 `package.json` 的 `dsh.bundle.patch`（= `examples/converge.bundle.patch.yml`，包名形态
