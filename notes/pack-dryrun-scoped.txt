@@ -1,0 +1,29 @@
+npm notice
+npm notice package: @uppercrusteve/dsh-converge@0.1.0
+npm notice Tarball Contents
+npm notice 1.1kB LICENSE
+npm notice 9.0kB README.md
+npm notice 49.2kB docs/S1-home.png
+npm notice 49.8kB docs/S2-session.png
+npm notice 26.8kB docs/S3-settings.png
+npm notice 26.6kB docs/S3b-toggle.png
+npm notice 755B examples/converge.bundle.patch.yml
+npm notice 989B examples/converge.dev-fileurl.patch.yml
+npm notice 20.5kB lib/client.js
+npm notice 2.6kB notes/CORE-ISSUE.md
+npm notice 1.1kB notes/pack-dryrun-scoped.txt
+npm notice 1.3kB package.json
+npm notice 91.0kB src/converge.js
+npm notice 10.7kB src/index.js
+npm notice 10.9kB src/resume-harness.js
+npm notice Tarball Details
+npm notice name: @uppercrusteve/dsh-converge
+npm notice version: 0.1.0
+npm notice filename: uppercrusteve-dsh-converge-0.1.0.tgz
+npm notice package size: 188.9 kB
+npm notice unpacked size: 302.3 kB
+npm notice shasum: 4be71d60c7fc0d58f9c52274018db3fc280ee635
+npm notice integrity: sha512-ZdoGETp+4QYuJ[...]JXAN8Mk9EXrOw==
+npm notice total files: 15
+npm notice
+uppercrusteve-dsh-converge-0.1.0.tgz

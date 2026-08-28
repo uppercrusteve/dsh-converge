@@ -1,0 +1,13 @@
+# dsh-converge bundle layer (the file declared by package.json dsh.bundle.patch).
+# Applied automatically at boot for every profile whose package.json lists
+# "@uppercrusteve/dsh-converge" in dsh.profile.bundles (that row is added/removed by
+#   dsh plugin --profile <name> add|remove @uppercrusteve/dsh-converge).
+# The row name is the PACKAGE QUALIFIER, resolved against the profile config tree:
+# it must resolve to this package's package.json, which declares
+#   dsh.client.platform == "web"  +  exports["./client"]
+# That is what makes the host serve
+# GET /plugins/@uppercrusteve/dsh-converge/client.js
+# (the three UI slots: turn-tail card / cockpit strip / settings section).
+- insert:
+    - id: converge
+      name: '@uppercrusteve/dsh-converge'

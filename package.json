@@ -1,0 +1,51 @@
+{
+  "name": "@uppercrusteve/dsh-converge",
+  "version": "0.1.0",
+  "description": "科研收敛驾驶舱 (developer preview): hard-gated research convergence loop for DSH agents - 7 conv_* tools + host session projection + turn-tail card (conversation.chat.turnTail) + cockpit strip (conversation.input.dock) + settings section. 零 npm 依赖 (node builtins + host ctx APIs + React from the browser module loader).",
+  "type": "module",
+  "main": "src/converge.js",
+  "exports": {
+    ".": {
+      "default": "./src/converge.js"
+    },
+    "./client": {
+      "default": "./lib/client.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src/",
+    "lib/",
+    "examples/",
+    "docs/",
+    "notes/",
+    "README.md"
+  ],
+  "dsh": {
+    "client": {
+      "platform": "web"
+    },
+    "bundle": {
+      "patch": "examples/converge.bundle.patch.yml"
+    }
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "dsh-bundle",
+    "cordis-plugin",
+    "converge",
+    "research",
+    "citation"
+  ],
+  "author": "uppercrusteve",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uppercrusteve/dsh-converge.git"
+  },
+  "bugs": {
+    "url": "https://github.com/uppercrusteve/dsh-converge/issues"
+  },
+  "homepage": "https://github.com/uppercrusteve/dsh-converge#readme",
+  "license": "MIT"
+}

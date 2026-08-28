@@ -1,0 +1,15 @@
+# dsh-converge dev overlay (no install needed): pass with --patch while iterating.
+#   $env:DSH_HOME='<isolated home>'
+#   node "<dsh bin>" --profile web --patch "<this file>" --port 18794 --no-open
+# Same insert row as the bundle layer, EXCEPT the name must be a file:/// URL here:
+# a bare Windows path (D:\...) is handed to the ESM loader as a URL, "D:" becomes a
+# protocol and the WHOLE plugin tree dies with ERR_UNSUPPORTED_ESM_URL_SCHEME
+# (measured, notes/P0-RESULTS.md item 0). For the browser bundle URL the package-NAME
+# form (@uppercrusteve/dsh-converge, i.e. examples/converge.bundle.patch.yml plus a
+# junction or real install under $DSH_HOME/profiles/.../node_modules) is required;
+# a file:/// name loads the host entry fine but serves no
+# /plugins/@uppercrusteve/dsh-converge/client.js (P3b control experiment).
+# EDIT THE PATH BELOW to your checkout before use.
+- insert:
+    - id: converge
+      name: 'file:///D:/codingspace/labs/dsh-converge/plugin/src/converge.js'
