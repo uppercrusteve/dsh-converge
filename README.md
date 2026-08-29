@@ -54,7 +54,20 @@ dsh plugin --profile web add @uppercrusteve/dsh-converge@preview
 > 一致（sha256 `1908…22F6`），且与 `file:`/npm 形态同一内容——CRLF→LF 归一化后 sha256 仍为 `0A96…166EEE`，
 > 只是行尾差异，不影响语法与运行。要拿到与仓库 blob 逐字节一致的检出，本机设
 > `git config --global core.autocrlf false`（或input），或在本包加 `.gitattributes` 后由发布者定稿。
-> npm 形态已发包（0.1.0）；`@preview` 装机回测尚未跑，跑通后在此更新验证状态。
+> npm 形态已发包（0.1.0，`dist-tags` = `preview=0.1.0`、`latest=0.1.0`）且 `@preview` 装机已实测
+> （2026-08-29，`dsh plugin --profile web add @uppercrusteve/dsh-converge@preview`，隔离 `DSH_HOME`、
+> 免 `--patch`、端口 18782）：deps/bundles/node_modules 三处出现 scoped 名（依赖解析为 `^0.1.0`）；
+> `GET /plugins/@uppercrusteve/dsh-converge/client.js` 返回 200 且与磁盘逐字节一致（20501 B，
+> sha256 `0A96…166EEE`，与 `file:`/`github:` 形态同一内容——npm tarball 不经 git 检出，天然无 CRLF 污染）；
+> BOOT 四事件 `event-types-register`(typesTotal=9)/`projection-register`(key=converge, stateVersion=1)/
+> `remote-mount`(getSummary+getSettings+setSetting)/`turn-tracker` 全 outcome=ok，`tools-registered` 7 个，
+> 宿主日志零 `plugin tree failed`；`remove` 后 dep/bundles 行/node_modules 三清除（pnpm 留一个空的
+> `@uppercrusteve` 作用域目录，无内容、不参与启动），cleanboot 下 bundle 404、index 200 且启动列表
+> 无该 scoped 行、无树错误、插件取证日志不生成（`tests/runs/RELEASE.audit.log` 中 `tag=RELnpm` 的
+> add/instboot/remove/cleanboot 四轮 `POLLUTION_CHECK … paths=13 changed=0 clean`；输出件
+> `RELnpm.add.out.txt`、`RELnpm.log.jsonl`、`RELnpm.served-client.js`、`RELnpm.remove.out.txt`）。
+> 一条 npm 侧须知：新包发布后头几分钟 packument 读端点可能返回 404（读副本传播；同期 tarball 直取
+> 与搜索索引已可用），`add …@preview` 若报 404 稍后重试即可。
 
 `add` 后 profile 的 `dsh.profile.bundles` 出现 `@uppercrusteve/dsh-converge`，宿主按
 `package.json` 的 `dsh.bundle.patch`（= `examples/converge.bundle.patch.yml`，包名形态
