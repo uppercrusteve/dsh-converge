@@ -21,11 +21,23 @@ conv_attach_evidence ×N → conv_score 0.62 …缺口点名 + 最短补法… �
 dsh plugin --profile web add github:uppercrusteve/dsh-converge
 # 锁 tag（发布推荐写法，可复现；pnpm 会把 #v0.1.0 归一成 commit 写进 lockfile）
 dsh plugin --profile web add github:uppercrusteve/dsh-converge#v0.1.0
-# npm（当前只发 preview tag，必须显式带 tag；不带 tag 会解析不到）
+# npm（0.1.0 已发布，建议显式钉 @preview，见下节）
 dsh plugin --profile web add @uppercrusteve/dsh-converge@preview
 # 本地调试（不安装，直接 patch 挂载；name 必须 file:/// URL，裸 D:\ 会被当协议炸掉整棵插件树）
 node "<dsh bin>" --profile web --patch "examples/converge.dev-fileurl.patch.yml" --port 18794 --no-open
 ```
+
+### 从 npm 安装
+
+```bash
+dsh plugin --profile web add @uppercrusteve/dsh-converge@preview
+```
+
+`@uppercrusteve/dsh-converge` 已发到 npm registry：0.1.0 是已发布版本，`dist-tags` 当前为
+`latest=0.1.0`、`preview=0.1.0`，所以不带 tag 的 `add @uppercrusteve/dsh-converge` 现在也能解析到包。
+仍建议显式钉 `@preview`：后续 dev 迭代以 `npm publish --tag preview` 出包，`preview` 会保持领先，
+钉 `@preview` 的装机命令在整个预览期都取到最新件；`latest` 只在定稿时推进，届时要装最新版可
+`npm view @uppercrusteve/dsh-converge dist-tags` 先核对。
 
 > 安装形态验证状态（做到哪写到哪）：`file:` 真装 + scoped bundle 路由已实测——profile
 > deps/bundles 出现 `@uppercrusteve/dsh-converge`，`GET /plugins/@uppercrusteve/dsh-converge/client.js`
@@ -42,7 +54,7 @@ node "<dsh bin>" --profile web --patch "examples/converge.dev-fileurl.patch.yml"
 > 一致（sha256 `1908…22F6`），且与 `file:`/npm 形态同一内容——CRLF→LF 归一化后 sha256 仍为 `0A96…166EEE`，
 > 只是行尾差异，不影响语法与运行。要拿到与仓库 blob 逐字节一致的检出，本机设
 > `git config --global core.autocrlf false`（或input），或在本包加 `.gitattributes` 后由发布者定稿。
-> npm `@preview` 形态仍待发包后回测。
+> npm 形态已发包（0.1.0）；`@preview` 装机回测尚未跑，跑通后在此更新验证状态。
 
 `add` 后 profile 的 `dsh.profile.bundles` 出现 `@uppercrusteve/dsh-converge`，宿主按
 `package.json` 的 `dsh.bundle.patch`（= `examples/converge.bundle.patch.yml`，包名形态
