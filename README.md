@@ -157,4 +157,13 @@ node tests/projection.test.mjs # 宿主投影折叠与打分对拍 10 组
 > `notes/pack-dryrun-scoped.txt`：`@uppercrusteve/dsh-converge@0.1.0`，tarball 名
 > `uppercrusteve-dsh-converge-0.1.0.tgz`，LICENSE 由 npm 自动附带）。
 
-MIT · 仓库 `github.com/uppercrusteve/dsh-converge` · npm `@uppercrusteve/dsh-converge`。
+## 静态检查（CI）
+
+`.github/workflows/ci.yml` 每次 push 与 PR 跑：`node --check` 全部源文件、`scripts/check-manifest.mjs`（包名/许可证/声明路径/patch 自洽）、`npm pack --dry-run` 漏件核对、入口模块可加载。
+
+**范围说明**：CI 没有 `dsh` 宿主，也没有真机安装。上文那些 BOOT 事件、bundle 字节一致、卸载零污染的证据仍以实测记录为准；CI 只挡"清单断裂、语法坏了、发布漏件"这三类事故。
+
+测试（`score` / `plugin-smoke` / `register` / `projection` 共 54 组）目前在工作区，`tests/` 以 `../plugin/src/converge.js` 相对路径引源码，还没搬进仓库——搬进来要改引用和加 CI 步骤，是下一步的事，不在这里充数。
+
+MIT · 仓库
+ `github.com/uppercrusteve/dsh-converge` · npm `@uppercrusteve/dsh-converge`。
