@@ -1,18 +1,15 @@
-# dsh-converge — 科研收敛驾驶舱 (developer preview)
+# dsh-converge
 
-> npm 包名是 scoped 的 `@uppercrusteve/dsh-converge`；仓库在
-> `github.com/uppercrusteve/dsh-converge`。下文所有命令用全名。
-
-给 DSH 智能体装一副「研究收敛仪表盘」：把一次研究/综述任务拆成研究树，随做随记证据与缺口，
-收尾前必须过三道硬门（G1 引用可解析 / G2 每个已作答子问题有结论 / G3 收尾正文非空）且总分
-≥0.85 才放行；不达标时回合末最多注入两次带「缺口 + 最短补法」的提醒。全部控制面以私有会话
-事件（`converge/*`）事件溯源落盘，不进模型可见历史；宿主侧纯函数投影把同一份状态同时供给
-浏览器端三块 UI（回合尾卡 / 输入坞驾驶舱条 / 设置分节）与 `convergeApi` RPC。零 npm 依赖。
+给 DSH 智能体装一副研究收敛仪表盘：把综述任务拆成研究树，随做随记证据与缺口。收尾要过三道硬门（G1 引用可解析 / G2 已作答子问题都有结论 / G3 收尾正文非空）且总分 ≥0.85 才放行；不达标时回合末最多提醒两次，只说缺什么、最短怎么补。
 
 ```
-conv_plan  施氮梯度对旱地小麦产量的影响 → sq1/sq2/sq3（每问必填支持槽+反例槽）
+conv_plan 施氮梯度对旱地小麦产量的影响 → sq1/sq2/sq3（每问必填支持槽 + 反例槽）
 conv_attach_evidence ×N → conv_score 0.62 …缺口点名 + 最短补法… → conv_conclude 1.00 放行
 ```
+
+状态全走私有会话事件（`converge/*`）事件源落盘，不进模型可见历史；宿主侧纯函数投影把同一份状态供给回合尾卡、输入坞驾驶舱条和设置页三块 UI，外加 `convergeApi` RPC。零 npm 依赖。
+
+包名是 scoped 的 `@uppercrusteve/dsh-converge`，仓库在 `github.com/uppercrusteve/dsh-converge`，下文命令一律用全名。
 
 ## 安装
 
