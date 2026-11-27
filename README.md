@@ -62,7 +62,7 @@ dsh plugin --profile web add @uppercrusteve/dsh-converge@preview
 > `@uppercrusteve` 作用域目录，无内容、不参与启动），cleanboot 下 bundle 404、index 200 且启动列表
 > 无该 scoped 行、无树错误、插件取证日志不生成（`tests/runs/RELEASE.audit.log` 中 `tag=RELnpm` 的
 > add/instboot/remove/cleanboot 四轮 `POLLUTION_CHECK … paths=13 changed=0 clean`；输出件
-> `RELnpm.add.out.txt`、`RELnpm.log.jsonl`、`RELnpm.served-client.js`、`RELnpm.remove.out.txt`）。
+> `RELnpm.add.out.txt`、`RELnpm.log.jsonl`、`RELnpm.served-client.js`、`RELnpm.remove.out.txt`）.
 > 一条 npm 侧须知：新包发布后头几分钟 packument 读端点可能返回 404（读副本传播；同期 tarball 直取
 > 与搜索索引已可用），`add …@preview` 若报 404 稍后重试即可。
 
